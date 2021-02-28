@@ -5,6 +5,7 @@ public class ContainsDuplicate {
 
     public static void main(String[] args) {
         int[] nums = new int[]{1,2,3,4,5,5};
+        double[] test = new double[nums.length];
         boolean result= containDuplicate(nums);
         System.out.println(result);
     }
