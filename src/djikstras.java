@@ -1,36 +1,46 @@
 import java.util.*;
 
 class ExecuteCode {
-    public static void main(String arg[])
-    {
-        int V = 5;
+    public static void main(String arg[]) {
+        int[][] graph = new int[][]{
+                {-1, 5, 20},
+                {21, -1, 10},
+                {-1, 1, -1}};
+        int[][] graph1 = new int[][]{
+                {-1, 5, 2, 15},
+                {2, -1, 0, 3},
+                {1, -1, -1, 9},
+                {0, 0, 0, -1}
+        };
+
+        int result = nightRoute(graph1);
+        System.out.println(result);
+    }
+
+    public static int nightRoute(int[][] city) {
+        int vertice = city.length;
         int source = 0;
 
-        List<List<Node> > adj = new ArrayList<>();
+        List<List<Node>> adj = new ArrayList<>();
 
-        for (int i = 0; i < V; i++) {
-            List<Node> item = new ArrayList<Node>();
+        for (int i = 0; i < vertice; i++) {
+            List<Node> item = new ArrayList<>();
             adj.add(item);
         }
 
-        adj.get(0).add(new Node(1, 9));
-        adj.get(0).add(new Node(2, 6));
-        adj.get(0).add(new Node(3, 5));
-        adj.get(0).add(new Node(4, 3));
-
-        adj.get(2).add(new Node(1, 2));
-        adj.get(2).add(new Node(3, 4));
-
-        djikstras djikstras = new djikstras(V);
+        for (int i = 0; i < city.length; i++) {
+            for (int j = 0; j < city.length; j++) {
+                if (city[i][j] != -1) {
+                    adj.get(i).add(new Node(j, city[i][j]));
+                }
+            }
+        }
+        djikstras djikstras = new djikstras(vertice);
         djikstras.execute(adj, source);
 
-        System.out.println("The shorted path from node :");
-        for (int i = 0; i < djikstras.dist.length; i++)
-            System.out.println(source + " to " + i + " is "
-                    + djikstras.dist[i]);
+        return djikstras.dist[djikstras.dist.length - 1];
     }
 }
-
 
 
 public class djikstras {
@@ -57,14 +67,14 @@ public class djikstras {
 
         priorityQueue.add(new Node(src, 0));
 
-            dist[src] = 0;
-            while (settled.size() != numberOfVertices) {
-                int u = priorityQueue.remove().node;
+        dist[src] = 0;
+        while (settled.size() != numberOfVertices) {
+            int u = priorityQueue.remove().node;
 
-                settled.add(u);
+            settled.add(u);
 
-                e_Neighbours(u);
-            }
+            e_Neighbours(u);
+        }
     }
 
 
