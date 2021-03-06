@@ -15,8 +15,8 @@ public class BirthdayCakeCandles {
         int tallest = candles.get(candles.size() - 1);
         int howManyTimesTallestAppears = 0;
 
-        for (int i = 0; i < candles.size(); i++) {
-            if (candles.get(i) == tallest) {
+        for (Integer candle : candles) {
+            if (candle == tallest) {
                 howManyTimesTallestAppears++;
             }
         }
