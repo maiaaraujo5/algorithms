@@ -6,17 +6,20 @@ import java.util.List;
 class Execute {
     public static void main(String[] args) {
         BFS bfs = new BFS();
-        bfs.insert(-1);
+        bfs.insert(10);
         bfs.insert(5);
         bfs.insert(20);
         bfs.insert(21);
-        bfs.insert(-1);
+        bfs.insert(5);
         bfs.insert(10);
-        bfs.insert(-1);
+        bfs.insert(6);
         bfs.insert(1);
-        bfs.insert(-1);
+        bfs.insert(2);
 
         System.out.println("BFS: " + bfs.breadthFirstSearch().toString());
+        System.out.println("DFS In Order: " + bfs.DFSInOrder().toString());
+        System.out.println("DFS Pre Order: " + bfs.DFSPreOrder().toString());
+        System.out.println("DFS Post Order: " + bfs.DFSPostOrder().toString());
     }
 }
 
@@ -93,6 +96,56 @@ public class BFS {
         return list;
     }
 
+    List<Integer> DFSInOrder() {
+        Node currentNode = this.root;
+        List<Integer> list = new ArrayList<>();
+        return traverserInOrder(currentNode, list);
+    }
+
+    List<Integer> DFSPreOrder() {
+        Node currentNode = this.root;
+        List<Integer> list = new ArrayList<>();
+        return traverserPreOrder(currentNode, list);
+    }
+
+    List<Integer> DFSPostOrder() {
+        Node currentNode = this.root;
+        List<Integer> list = new ArrayList<>();
+        return traversePostOrder(currentNode, list);
+    }
+
+    List<Integer> traverserInOrder(Node node, List<Integer> list) {
+        if (node.getLeft() != null) {
+            traverserInOrder(node.getLeft(), list);
+        }
+        list.add(node.getValue());
+        if (node.getRight() != null) {
+            traverserInOrder(node.getRight(), list);
+        }
+        return list;
+    }
+
+    List<Integer> traverserPreOrder(Node node, List<Integer> list) {
+        list.add(node.getValue());
+        if (node.getLeft() != null) {
+            traverserPreOrder(node.getLeft(), list);
+        }
+        if (node.getRight() != null) {
+            traverserPreOrder(node.getRight(), list);
+        }
+        return list;
+    }
+
+    List<Integer> traversePostOrder(Node node, List<Integer> list) {
+        if (node.getLeft() != null) {
+            traversePostOrder(node.getLeft(), list);
+        }
+        if (node.getRight() != null) {
+            traversePostOrder(node.getRight(), list);
+        }
+        list.add(node.getValue());
+        return list;
+    }
 }
 
 
